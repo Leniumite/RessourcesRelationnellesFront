@@ -13,11 +13,3 @@ body {
     color-scheme: dark;
   }
 }
-
-input::placeholder {
-  color: black;
-}
-
-h2, h3 {
-  color: black;
-}
