@@ -1,6 +1,5 @@
 {
   "include": [
-    "**/*",
     "**/.server/**/*",
     "**/.client/**/*",
     ".react-router/types/**/*"

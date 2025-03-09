@@ -1,11 +1,10 @@
-import React from 'react';
-
 //Importation of components will be simplier in the futur, given we will only need Header, UserName, Menu and Feed
 import { Header } from '../Components/Header'; //Needs to add .. because the Components folder is up one folder
 import { UserName} from '../Components/UserName';
 import { Button } from '../Components/Button';
 import { Menu } from '../Components/Menu';
 import { Feed } from '../Components/Feed';
+import { AccountButton } from '../Components/AccountButton';
 
 export default function MyApp() {
   return (
@@ -17,9 +16,12 @@ export default function MyApp() {
       <div className="container flex gap-6">
         <Menu />
         <Feed />
+        <AccountButton />
       </div>
       
       <Button />
+
+      
     </div>
   );
 }
