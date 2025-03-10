@@ -6,7 +6,7 @@ import { Menu } from '../Components/Menu';
 import { Feed } from '../Components/Feed';
 import { AccountButton } from '../Components/AccountButton';
 
-export default function MyApp() {
+export default function Accueil() {
   return (
     //Nothing more than the components from the includes should appear here
     <div className="min-h-screen bg-gray-100">
