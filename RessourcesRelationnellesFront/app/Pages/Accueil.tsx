@@ -4,7 +4,6 @@ import { UserName} from '../Components/UserName';
 import { Button } from '../Components/Button';
 import { Menu } from '../Components/Menu';
 import { Feed } from '../Components/Feed';
-import { AccountButton } from '../Components/AccountButton';
 
 export default function Accueil() {
   return (
@@ -16,7 +15,6 @@ export default function Accueil() {
       <div className="container flex gap-6">
         <Menu />
         <Feed />
-        <AccountButton />
       </div>
       
       <Button />

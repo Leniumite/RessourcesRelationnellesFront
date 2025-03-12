@@ -5,6 +5,7 @@ import { Header } from '../Components/Header'; //Needs to add .. because the Com
 import { UserName} from '../Components/UserName';
 import { Button } from '../Components/Button';
 import { Menu } from '../Components/Menu';
+import { ProfilInformations } from '../Components/ProfilInformations'
 
 export default function Account() {
   return (
@@ -15,6 +16,7 @@ export default function Account() {
 
       <div className="container flex gap-6">
         <Menu />
+        <ProfilInformations />
       </div>
       
       <Button />
