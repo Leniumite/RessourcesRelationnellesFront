@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
+//Interface that implement all props that the form will send
 interface ConnectionFormProps {
+  //Variables definition
   isLogin: boolean;
   onSubmit: (formData: {
     email: string;
@@ -11,25 +12,28 @@ interface ConnectionFormProps {
   }) => void;
 }
 
+//Function relative to the form. This will be called by external pages (Connection page).
 function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
-  const [showPassword, setShowPassword] = useState(false);
-  const [formData, setFormData] = useState({
+  //Variables
+  const [showPassword, setShowPassword] = useState(false); //Litteral setter that sets showPassword to false by default
+  const [formData, setFormData] = useState({ //Also sets the array formData to all empty strings
     email: '',
     password: '',
     confirmPassword: ''
   });
 
+  //Custom handle that save data to array once the field is changed
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+      ...formData, //Way to select ALL data from an array. Used like a foreach
+      [e.target.name]: e.target.value //Override the variable who's name is like the target name as the target variable
     });
   };
 
   //A custom handler that will take into parameters info from the form
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+    onSubmit(formData); //Simply submit all data contained in formData. Will need to add check in DB for infos here
   };
 
   return (
@@ -43,7 +47,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="email"
-            name="email"
+            name="email" //Name of target used to save variable
             value={formData.email}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -61,7 +65,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type={showPassword ? 'text' : 'password'}
-            name="password"
+            name="password"  //Name of target used to save variable
             value={formData.password}
             onChange={handleInputChange}
             className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -91,7 +95,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
             <Lock className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type={showPassword ? 'text' : 'password'}
-              name="confirmPassword"
+              name="confirmPassword" //Name of target used to save variable
               value={formData.confirmPassword}
               onChange={handleInputChange}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
