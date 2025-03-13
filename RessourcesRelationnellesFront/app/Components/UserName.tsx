@@ -15,7 +15,7 @@ export function UserName() {
         </div>
         <div className="flex gap-4">
           <Link
-          to="/account"
+          to="/connection"
           className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
           >
             <User className="w-6 h-6 text-black" /> {/* Lucide-react icon of a user */}

@@ -18,8 +18,6 @@ export default function Accueil() {
       </div>
       
       <Button />
-
-      
     </div>
   );
 }
