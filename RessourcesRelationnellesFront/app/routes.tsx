@@ -8,5 +8,6 @@ export default [
   route("/", "Pages/Accueil.tsx"),
   route("/connection", "Pages/Connection.tsx"),
   route("/account", "Pages/Account.tsx"),
+  route("/community/:slug", "Pages/Community.tsx"),
   route("*?", "Pages/NoPage.tsx"),
 ] satisfies RouteConfig;

@@ -1,15 +1,41 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export function Menu() {
+    const communities = [ //still plaecHolder data
+        {
+            slug: 'born-to-be-alive',
+            title: 'BornToBeAlive',
+        },
+        {
+            slug: 'choucroute',
+            title: 'Choucroute',
+        },
+        {
+            slug: 'famous-pilots-on-drugs',
+            title: 'FamousPilotsOnDrugs',
+        },
+        {
+            slug: 'explosiv-cuteness',
+            title: 'ExplosivCuteness',
+        },
+        {
+            slug: 'how-to-basic',
+            title: 'HowToBasic',
+        },
+    ] 
+
     return (
         <div className="gap-6 p-4 w-128 space-y-2 bg-blue-100"> {/* Define another container with a width of 128 (32rem?, 512px) and a space between vertical elements of 2 */}
             <h2 className="font-semibold mb-4">Reprenez là où vous vous étiez arrêté :</h2>
 
             {/* My today's nightmare, where I search how to put thing from a list into display. At the moment, it needs to have the list hardcoded, but will be replaced with a query later */}
-            {['BornToBeAlive', 'Choucroute', 'FamousPilotsOnDrugs', 'ExplosivCuteness', 'HowToBasic'].map((item) => (
-                <div key={item} className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition cursor-pointer text-black"> {/* Each items are responding to the cursor hovering */}
-                c/{item}
-                </div>
+            {communities.map((category) => (
+                <Link to={`/community/${category.slug}`}>
+                    <div className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition cursor-pointer"> {/* Each items are responding to the cursor hovering */}
+                        c/{category.title}
+                    </div>
+                </Link>
             ))}
             
                 <div className="mt-8">
