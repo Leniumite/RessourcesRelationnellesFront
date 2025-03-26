@@ -51,7 +51,25 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
             value={formData.email}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your email"
+            placeholder="Entrez un mail valide"
+            required
+          />
+        </div>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">
+          Nom d'utilisateur
+        </label>
+        <div className="relative">
+          <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            name="username" //Name of target used to save variable
+            value={formData.email}
+            onChange={handleInputChange}
+            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="Choisissez un nom d'utilisateur"
             required
           />
         </div>
@@ -69,7 +87,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
             value={formData.password}
             onChange={handleInputChange}
             className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            placeholder="Enter your password"
+            placeholder="Choisissez un mot de passe"
             required
           />
           <button
@@ -99,7 +117,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
               value={formData.confirmPassword}
               onChange={handleInputChange}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Confirm your password"
+              placeholder="Romettez le mot de passe, juste pour voir"
               required
             />
           </div>

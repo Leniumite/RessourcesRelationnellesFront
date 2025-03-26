@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogIn, UserPlus, ArrowLeft } from 'lucide-react';
 import ConnectionForm from '../Components/ConnectionForm';
+import { Header } from '../Components/Header';
 
 function Connection() {
   //isLogin is true by default when you come to the page. I dont know what is setIsLogin. Obviously a setter, but how??
@@ -18,6 +19,8 @@ function Connection() {
   
   return (
     <div className="min-h-screen bg-gray-100 p-8">
+      <Header />
+      
       <div className="max-w-md mx-auto">
 
         {/* Put a link to go back to Accueil */}
