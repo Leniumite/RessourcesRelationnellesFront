@@ -1,10 +1,10 @@
 //Defining here all data structure we will need to export.
-export interface User {
-    id: string;
-    username: string;
+export interface AppUser {
     mail: String;
+    roles: String[];
     passwordHash: String;
-    avatar: string;
+    passwordClear: String;
+    name: string;
 }
 
 export interface Community {
