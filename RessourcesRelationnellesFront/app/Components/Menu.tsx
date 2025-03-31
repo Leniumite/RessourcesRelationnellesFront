@@ -31,7 +31,7 @@ export function Menu() {
 
             {/* My today's nightmare, where I search how to put thing from a list into display. At the moment, it needs to have the list hardcoded, but will be replaced with a query later */}
             {communities.map((category) => (
-                <Link to={`/community/${category.slug}`}>
+                <Link key={category.slug} to={`/community/${category.slug}`}>
                     <div className="bg-white rounded-lg p-3 shadow-sm hover:shadow-md transition cursor-pointer"> {/* Each items are responding to the cursor hovering */}
                         c/{category.title}
                     </div>

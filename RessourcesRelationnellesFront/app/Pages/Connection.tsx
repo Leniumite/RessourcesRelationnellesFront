@@ -9,9 +9,11 @@ function Connection() {
   const [isLogin, setIsLogin] = useState(true);
 
   const handleSubmit = (formData: {
-    email: string;
-    password: string;
-    confirmPassword: string;
+    mail: String;
+    roles: String[];
+    password: String;
+    plainpassword: String;
+    name: string;
   }) => {
     // Handle authentication logic here
     console.log('Form submitted:', formData);
@@ -20,7 +22,7 @@ function Connection() {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <Header />
-      
+
       <div className="max-w-md mx-auto">
 
         {/* Put a link to go back to Accueil */}
@@ -60,13 +62,8 @@ function Connection() {
               Sign Up
             </button>
           </div>
-
-          <Link 
-            to="/account"
-            className="inline-flex items-center gap-2 transition-colors mb-8"
-          >
-            <ConnectionForm isLogin={isLogin} onSubmit={handleSubmit} />
-          </Link>
+          
+          <ConnectionForm isLogin={isLogin} onSubmit={handleSubmit} />
         </div>
       </div>
     </div>

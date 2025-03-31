@@ -1,39 +1,76 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
+import { api } from '../Services/api';
 
 //Interface that implement all props that the form will send
 interface ConnectionFormProps {
   //Variables definition
   isLogin: boolean;
   onSubmit: (formData: {
-    email: string;
-    password: string;
-    confirmPassword: string;
+    mail: String;
+    roles: String[];
+    password: String;
+    plainpassword: String;
+    name: string;
   }) => void;
 }
 
 //Function relative to the form. This will be called by external pages (Connection page).
 function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
   //Variables
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false); //Litteral setter that sets showPassword to false by default
   const [formData, setFormData] = useState({ //Also sets the array formData to all empty strings
     email: '',
+    roles: ["SimpleUser"],
     password: '',
-    confirmPassword: ''
+    plainpassword: '',
+    name: '',
   });
 
-  //Custom handle that save data to array once the field is changed
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData, //Way to select ALL data from an array. Used like a foreach
-      [e.target.name]: e.target.value //Override the variable who's name is like the target name as the target variable
-    });
+  //A custom handler that will take into parameters info from the form
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();  //Disable send of form Data et and page reloading.
+
+    if(!isLogin) //Or loging in with info already existing
+    {      
+      try {
+        const appUser = await api.login({
+          email: formData.email,
+          roles: formData.roles,
+          password: formData.password,
+          plainpassword: formData.plainpassword,
+          name: formData.name
+        }); //Ask to API to execute login function and then wait for the result. Though the API function does not ask for param, we could pass the formData to already create appUser filled.
+        console.log(appUser);
+      } catch (error) {
+        console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
+      }
+    }
+    
+    //Once the account is created, we can now auth. If still not connected here, it will automatically send an error because of API not finding any matches in DB
+    try {
+      const token = await api.auth({
+        email: formData.email, 
+        password: formData.password
+      }); //Ask to API to execute login function and then wait for the result
+      console.log(token);
+
+      //Smarter to do this here, else we just auth even if there is an error
+      navigate('/account');
+    } catch (error) {
+      console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
+    } 
   };
 
-  //A custom handler that will take into parameters info from the form
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSubmit(formData); //Simply submit all data contained in formData. Will need to add check in DB for infos here
+  //Custom handler to save data input into formData
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
   return (
@@ -48,7 +85,6 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <input
             type="email"
             name="email" //Name of target used to save variable
-            value={formData.email}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Entrez un mail valide"
@@ -57,6 +93,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
         </div>
       </div>
 
+      {!isLogin && (
       <div>
         <label className="block text-sm font-medium mb-2">
           Nom d'utilisateur
@@ -66,7 +103,6 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <input
             type="text"
             name="username" //Name of target used to save variable
-            value={formData.email}
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Choisissez un nom d'utilisateur"
@@ -74,6 +110,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           />
         </div>
       </div>
+      )}
 
       <div>
         <label className="block text-sm font-medium mb-2">
@@ -84,7 +121,6 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <input
             type={showPassword ? 'text' : 'password'}
             name="password"  //Name of target used to save variable
-            value={formData.password}
             onChange={handleInputChange}
             className="w-full pl-10 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Choisissez un mot de passe"
@@ -114,8 +150,6 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
             <input
               type={showPassword ? 'text' : 'password'}
               name="confirmPassword" //Name of target used to save variable
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Romettez le mot de passe, juste pour voir"
               required

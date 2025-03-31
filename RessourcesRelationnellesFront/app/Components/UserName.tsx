@@ -1,8 +1,7 @@
 import { User, LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export function UserName() {
-
   return (
     <div className="bg-white border-b shadow-sm">
       <div className="container flex items-center justify-between p-4">

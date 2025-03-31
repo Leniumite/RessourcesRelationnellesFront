@@ -2,11 +2,12 @@
 export interface AppUser {
     mail: String;
     roles: String[];
-    passwordHash: String;
-    passwordClear: String;
+    password: String;
+    plainpassword: String;
     name: string;
 }
 
+//Purely fictionnal as API code for this is not written
 export interface Community {
     id: string;
     name: string;
@@ -15,6 +16,7 @@ export interface Community {
     createdAt: string;
   }
   
+//Purely fictionnal as API code for this is not written
   export interface Post {
     id: string;
     title: string;
