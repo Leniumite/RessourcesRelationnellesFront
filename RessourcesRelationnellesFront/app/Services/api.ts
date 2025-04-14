@@ -6,9 +6,11 @@ export const api = {
   ///Function that return a token if the credentials matches
   ///
   ///Param (email: String, password:String) 
-  async auth(credentials: { email: String; password: String }): Promise<String> {
+  async auth(credentials: { email: string; password: string }): Promise<string> {
     //We go here after click on form
+
     console.log(credentials);
+
     const response = await fetch(`${API_URL}/auth`, {
         method: 'POST',
         headers: {
@@ -16,7 +18,7 @@ export const api = {
         },
         body: JSON.stringify(credentials),
     });
-    console.log(response);
+    console.log(response.json());
 
     if (!response.ok) throw new Error('Authentification failed');
     

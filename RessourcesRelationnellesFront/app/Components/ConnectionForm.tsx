@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { api } from '../Services/api';
+import { createContext } from 'react';
 
 //Interface that implement all props that the form will send
 interface ConnectionFormProps {
@@ -43,7 +44,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           plainpassword: formData.plainpassword,
           name: formData.name
         }); //Ask to API to execute login function and then wait for the result. Though the API function does not ask for param, we could pass the formData to already create appUser filled.
-        console.log(appUser);
+        const User = createContext(appUser);
       } catch (error) {
         console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
       }
@@ -51,11 +52,13 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     
     //Once the account is created, we can now auth. If still not connected here, it will automatically send an error because of API not finding any matches in DB
     try {
+      console.log("1");
       const token = await api.auth({
         email: formData.email, 
         password: formData.password
       }); //Ask to API to execute login function and then wait for the result
-      console.log(token);
+      console.log("2");
+      //console.log(token);
 
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');
