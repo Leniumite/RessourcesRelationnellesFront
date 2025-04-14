@@ -3,7 +3,7 @@ export interface AppUser {
     mail: String;
     roles: String[];
     password: String;
-    plainpassword: String;
+    plainPassword: String;
     name: string;
 }
 

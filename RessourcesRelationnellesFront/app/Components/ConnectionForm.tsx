@@ -26,7 +26,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     email: '',
     roles: ["SimpleUser"],
     password: '',
-    plainpassword: '',
+    plainPassword: '',
     name: '',
   });
 
@@ -40,8 +40,8 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
         const appUser = await api.login({
           email: formData.email,
           roles: formData.roles,
-          password: formData.password,
-          plainpassword: formData.plainpassword,
+          password: "",
+          plainPassword: formData.password,
           name: formData.name
         }); //Ask to API to execute login function and then wait for the result. Though the API function does not ask for param, we could pass the formData to already create appUser filled.
         const User = createContext(appUser);
@@ -52,14 +52,10 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     
     //Once the account is created, we can now auth. If still not connected here, it will automatically send an error because of API not finding any matches in DB
     try {
-      console.log("1");
       const token = await api.auth({
         email: formData.email, 
         password: formData.password
       }); //Ask to API to execute login function and then wait for the result
-      console.log("2");
-      //console.log(token);
-
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');
     } catch (error) {
@@ -105,7 +101,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           <Mail className="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            name="username" //Name of target used to save variable
+            name="name" //Name of target used to save variable
             onChange={handleInputChange}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             placeholder="Choisissez un nom d'utilisateur"

@@ -31,7 +31,7 @@ export const api = {
   ///Function that create an AppUser (normally)
   ///
   ///Param: formData, format specified. The informations contained by the form when the submit button is clicked, which will be passed to appUser object  
-  async login(formData: { email: string; roles: string[]; password: string; plainpassword: string; name: string; }): Promise<String> {
+  async login(formData: { email: string; roles: string[]; password: string; plainPassword: string; name: string; }): Promise<String> {
     const response = await fetch(`${API_URL}/api/register`, {
       method: 'POST',
       headers: {
@@ -50,7 +50,7 @@ export const api = {
       mail: formData.email,
       roles: formData.roles,
       password: formData.password,
-      plainpassword: formData.password, //Don't know how this will works, but it's here
+      plainPassword: formData.password, //Don't know how this will works, but it's here
       name: formData.name, 
     }
 
