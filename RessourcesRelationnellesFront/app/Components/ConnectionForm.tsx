@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
-import { api } from '../Services/api';
+import { api } from '../Services/UserApi';
 import { createContext } from 'react';
 
 //Interface that implement all props that the form will send
