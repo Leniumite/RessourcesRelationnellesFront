@@ -51,3 +51,5 @@ export function useUser() {
   }
   return context;
 }
+
+//I have absolutely zero ideas on how this context works and how to use it. I'm sorry
