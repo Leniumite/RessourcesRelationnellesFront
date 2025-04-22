@@ -1,10 +1,11 @@
 //Defining here all data structure we will need to export.
 export interface AppUser {
-    mail: String;
-    roles: String[];
-    password: String;
-    plainPassword: String;
+    mail: string;
+    roles: string[];
+    password: string;
+    plainPassword: string;
     name: string;
+    token: string;
 }
 
 //Purely fictionnal as API code for this is not written

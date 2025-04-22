@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL; //Gather environnement var as API 
 export const api = {
   ///Function that return a token if the credentials matches
   ///
-  ///Param (email: String, password:String) 
+  ///Param (email: string, password:string) 
   async auth(credentials: { email: string; password: string }): Promise<string> {
     //We go here after click on form
 
@@ -31,7 +31,8 @@ export const api = {
   ///Function that create an AppUser (normally)
   ///
   ///Param: formData, format specified. The informations contained by the form when the submit button is clicked, which will be passed to appUser object  
-  async login(formData: { email: string; roles: string[]; password: string; plainPassword: string; name: string; }): Promise<String> {
+  async login(formData: { email: string; roles: string[]; password: string; plainPassword: string; name: string; }, appUser: AppUser): Promise<void> 
+  {
     const response = await fetch(`${API_URL}/api/register`, {
       method: 'POST',
       headers: {
@@ -46,16 +47,16 @@ export const api = {
     console.log(response);
 
     //Transform API response into AppUser format
-    const appUser: AppUser = {
-      mail: formData.email,
-      roles: formData.roles,
-      password: formData.password,
-      plainPassword: formData.password, //Don't know how this will works, but it's here
-      name: formData.name, 
-    }
+    appUser.mail = formData.email;
+    appUser.roles = formData.roles;
+    appUser.password = formData.password;
+    appUser.plainPassword = formData.password; //Don't know how this will works, but it's here
+    appUser.name = formData.name;
+    appUser.token = "";
 
     //Errors handling
-    if (!response.ok) {
+    if (!response.ok) 
+    {
       //Email already used
       if(response.status == 500)
       {
@@ -67,7 +68,5 @@ export const api = {
         throw new Error(errorData.message || 'Registration failed');
       }
     }
-
-    return "";
   }
 };

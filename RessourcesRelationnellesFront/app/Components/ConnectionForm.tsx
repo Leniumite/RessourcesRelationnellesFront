@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { api } from '../Services/UserApi';
-import { createContext } from 'react';
+import { login, getUser } from '../UserContext';
+import type { AppUser } from '~/Types';
 
 //Interface that implement all props that the form will send
 interface ConnectionFormProps {
   //Variables definition
   isLogin: boolean;
   onSubmit: (formData: {
-    mail: String;
-    roles: String[];
-    password: String;
-    plainpassword: String;
+    mail: string;
+    roles: string[];
+    password: string;
+    plainpassword: string;
     name: string;
   }) => void;
 }
@@ -30,6 +31,15 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     name: '',
   });
 
+  const appUser: AppUser = {
+        mail: "",
+        roles: [""],
+        password: "",
+        plainPassword: "",
+        name: "",
+        token: "",
+      }
+
   //A custom handler that will take into parameters info from the form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();  //Disable send of form Data et and page reloading.
@@ -37,14 +47,14 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     if(!isLogin) //Or loging in with info already existing
     {      
       try {
-        const appUser = await api.login({
+        //Ask to API to execute login function and assign a value to appUser. Though the API function does not ask for param, we should pass the formData and appUser to know which data to put in the object.
+        await api.login({
           email: formData.email,
           roles: formData.roles,
           password: "",
           plainPassword: formData.password,
           name: formData.name
-        }); //Ask to API to execute login function and then wait for the result. Though the API function does not ask for param, we could pass the formData to already create appUser filled.
-        const User = createContext(appUser);
+        }, appUser); 
       } catch (error) {
         console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
       }
@@ -52,10 +62,15 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     
     //Once the account is created, we can now auth. If still not connected here, it will automatically send an error because of API not finding any matches in DB
     try {
+      //Ask to API to attribute token to a given AppUser
       const token = await api.auth({
-        email: formData.email, 
+        email: appUser.mail,
         password: formData.password
-      }); //Ask to API to execute login function and then wait for the result
+      }); 
+      //Set the token value from appUser 
+      appUser.token = token;
+      console.log();
+
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');
     } catch (error) {
