@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import { LogIn, UserPlus, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { api } from '../Services/UserApi';
-import { login, getUser } from '../UserContext';
+import { useUser } from '../Context';
 import type { AppUser } from '~/Types';
 
 //Interface that implement all props that the form will send
@@ -21,6 +21,8 @@ interface ConnectionFormProps {
 //Function relative to the form. This will be called by external pages (Connection page).
 function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
   //Variables
+  const { login, getUserName } = useUser();
+
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false); //Litteral setter that sets showPassword to false by default
   const [formData, setFormData] = useState({ //Also sets the array formData to all empty strings
@@ -55,6 +57,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           plainPassword: formData.password,
           name: formData.name
         }, appUser); 
+        login;
       } catch (error) {
         console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
       }
@@ -70,6 +73,7 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
       //Set the token value from appUser 
       appUser.token = token;
       console.log();
+      console.log(getUserName);
 
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');

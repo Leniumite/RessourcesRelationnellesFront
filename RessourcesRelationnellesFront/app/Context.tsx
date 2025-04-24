@@ -8,7 +8,7 @@ interface UserContextType {
   user: AppUser | null;           //Way of putting an if condition in a variable declaration = Current user if logged in, null if not logged in
   login: (user: AppUser) => void; //Function to log user in
   logout: () => void;             //Function to log user out
-  getUser: () => AppUser | null;         //Function to get a user
+  getUserName: () => string | undefined;         //Function to get a user
 }
 
 //Create the context with undefined as initial value
@@ -24,9 +24,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }
 
   // Get current user function
-  const getUser = (): AppUser | null => 
+  const getUserName = (): string | undefined => 
   {
-    return user;
+    return user?.name;
   };
 
   // Logout function: removes user data
@@ -37,7 +37,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   //Export the provider (don't ask me explainations on this one)
   return (
-    <UserContext.Provider value={{ user, login, logout, getUser }}>
+    <UserContext.Provider value={{ user, login, logout, getUserName }}>
       {children}
     </UserContext.Provider>
   );

@@ -1,3 +1,4 @@
+import { UserProvider } from '../Context';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogIn, UserPlus, ArrowLeft } from 'lucide-react';
@@ -21,51 +22,53 @@ function Connection() {
   
   return (
     <div className="min-h-screen bg-gray-100 p-8">
-      <Header />
+      <UserProvider>
+        <Header />
 
-      <div className="max-w-md mx-auto">
+        <div className="max-w-md mx-auto">
 
-        {/* Put a link to go back to Accueil */}
-        <Link 
-          to="/"
-          className="inline-flex items-center gap-2 transition-colors mb-8"
-        >
-          <ArrowLeft className="w-5 h-5" /> {/* Lucid react */}
-          Back to Home
-        </Link>
+          {/* Put a link to go back to Accueil */}
+          <Link 
+            to="/"
+            className="inline-flex items-center gap-2 transition-colors mb-8"
+          >
+            <ArrowLeft className="w-5 h-5" /> {/* Lucid react */}
+            Back to Home
+          </Link>
 
-        <div className="bg-white rounded-xl shadow-lg p-8">
-          <div className="flex gap-4 mb-8">
-            {/* A button that will modify the variable isLogin to true*/}
-            <button
-              className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors ${
-                isLogin
-                  ? 'bg-green-600' //If selected
-                  : 'bg-gray-100 hover:bg-gray-200' //If not
-              }`}
-              onClick={() => setIsLogin(true)}
-            >
-              <LogIn className="w-5 h-5" />
-              Login
-            </button>
+          <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="flex gap-4 mb-8">
+              {/* A button that will modify the variable isLogin to true*/}
+              <button
+                className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors ${
+                  isLogin
+                    ? 'bg-green-600' //If selected
+                    : 'bg-gray-100 hover:bg-gray-200' //If not
+                }`}
+                onClick={() => setIsLogin(true)}
+              >
+                <LogIn className="w-5 h-5" />
+                Login
+              </button>
 
-            {/* A button that will modify the variable isLogin to false*/}
-            <button
-              className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors ${
-                !isLogin
-                  ? 'bg-green-600' //If selected
-                  : 'bg-gray-100 hover:bg-gray-200' //If not
-              }`}
-              onClick={() => setIsLogin(false)}
-            >
-              <UserPlus className="w-5 h-5" />
-              Sign Up
-            </button>
+              {/* A button that will modify the variable isLogin to false*/}
+              <button
+                className={`flex-1 py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors ${
+                  !isLogin
+                    ? 'bg-green-600' //If selected
+                    : 'bg-gray-100 hover:bg-gray-200' //If not
+                }`}
+                onClick={() => setIsLogin(false)}
+              >
+                <UserPlus className="w-5 h-5" />
+                Sign Up
+              </button>
+            </div>
+            
+            <ConnectionForm isLogin={isLogin} onSubmit={handleSubmit} />
           </div>
-          
-          <ConnectionForm isLogin={isLogin} onSubmit={handleSubmit} />
         </div>
-      </div>
+      </UserProvider>
     </div>
   );
 }

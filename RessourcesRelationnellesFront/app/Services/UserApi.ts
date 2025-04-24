@@ -24,7 +24,6 @@ export const api = {
     
     //Here it will needs to be response.token
     const token = '';
-    console.log(token);
     return token;
   },
 
@@ -43,8 +42,6 @@ export const api = {
       //If formData is in another format, API will send back 415 code, wich occurs when bad data formatting
       body: JSON.stringify(formData),
     });
-
-    console.log(response);
 
     //Transform API response into AppUser format
     appUser.mail = formData.email;
