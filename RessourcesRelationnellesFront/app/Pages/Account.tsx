@@ -9,7 +9,6 @@ import { ProfilInformations } from '../Components/ProfilInformations'
 export default function Account() {
   return (
     <UserProvider>
-      //Nothing more than the components from the includes should appear here
       <div className="min-h-screen bg-gray-100">
         <Header />
         <UserName />
