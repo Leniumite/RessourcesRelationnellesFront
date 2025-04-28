@@ -8,7 +8,7 @@ interface UserContextType {
   user: AppUser | null;           //Way of putting an if condition in a variable declaration = Current user if logged in, null if not logged in
   login: (user: AppUser) => void; //Function to log user in
   logout: () => void;             //Function to log user out
-  getUserName: () => string | undefined;         //Function to get a user
+  getUser: () => AppUser | null;      //Function to get a user name
 }
 
 //Create the context with undefined as initial value
@@ -18,15 +18,17 @@ const UserContext = createContext<UserContextType | undefined>(undefined); //Fla
 export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppUser | null>(null);
 
-  const login = (user: AppUser): void =>
-  {
-    setUser(user);
-  }
+  const login = (user: AppUser): Promise<void> => {
+    return new Promise((resolve) => {
+      setUser(user);
+      resolve();
+    });
+  };
 
   // Get current user function
-  const getUserName = (): string | undefined => 
+  const getUser = (): AppUser | null => 
   {
-    return user?.name;
+    return user;
   };
 
   // Logout function: removes user data
@@ -37,7 +39,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   //Export the provider (don't ask me explainations on this one)
   return (
-    <UserContext.Provider value={{ user, login, logout, getUserName }}>
+    <UserContext.Provider value={{ user, login, logout, getUser }}>
       {children}
     </UserContext.Provider>
   );
@@ -51,5 +53,3 @@ export function useUser() {
   }
   return context;
 }
-
-//I have absolutely zero ideas on how this context works and how to use it. I'm sorry

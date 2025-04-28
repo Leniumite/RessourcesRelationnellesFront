@@ -21,7 +21,7 @@ interface ConnectionFormProps {
 //Function relative to the form. This will be called by external pages (Connection page).
 function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
   //Variables
-  const { login, getUserName } = useUser();
+  const { login, getUser } = useUser();
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false); //Litteral setter that sets showPassword to false by default
@@ -57,7 +57,8 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           plainPassword: formData.password,
           name: formData.name
         }, appUser); 
-        login;
+        await login(appUser);
+        console.log(getUser());
       } catch (error) {
         console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
       }
@@ -67,19 +68,18 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
     try {
       //Ask to API to attribute token to a given AppUser
       const token = await api.auth({
-        email: appUser.mail,
+        email: formData.email,
         password: formData.password
       }); 
       //Set the token value from appUser 
       appUser.token = token;
-      console.log();
-      console.log(getUserName);
+      console.log(getUser());
 
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');
     } catch (error) {
       console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
-    } 
+    }
   };
 
   //Custom handler to save data input into formData

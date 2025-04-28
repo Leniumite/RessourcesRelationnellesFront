@@ -1,12 +1,18 @@
 import { User, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom'
+import { useUser } from '../Context';
 
 export function UserName() {
+  const { getUser } = useUser();
+  const user = getUser();
+
+  const userName = user ? user.name : "Non connecté.e";
+
   return (
     <div className="bg-white border-b shadow-sm">
       <div className="container flex items-center justify-between p-4">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-black">Bienvenue, Saw6deFranckFort</span>
+          <span className="font-semibold text-black">Bienvenue, {userName}</span>
           <span className="flex gap-1">
             <span className="h-6 w-6 rounded-full bg-green-500"></span>
             <span className="h-6 w-6 rounded-full bg-rainbow-gradient"></span>
