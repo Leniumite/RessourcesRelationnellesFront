@@ -9,5 +9,6 @@ export default [
   route("/connection", "Pages/Connection.tsx"),
   route("/account", "Pages/Account.tsx"),
   route("/community/:slug", "Pages/Community.tsx"),
+  route("/community/:slug/post/:postId", "Pages/Post.tsx"),
   route("*?", "Pages/NoPage.tsx"),
 ] satisfies RouteConfig;

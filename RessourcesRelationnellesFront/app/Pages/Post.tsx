@@ -13,21 +13,24 @@ function Post() {
       id: 1,
       postAuthor: 'xX_JeanMichelDu42_Xx',
       content: 'Vraiment intéressant comme article ! Je pense que la partie sur les avions est particulièrement bien documentée.',
-      likes: 24,
+      upvotes: 24,
+      downvotes: 1,
       postDate: '24/04/2025 16:12'
     },
     {
       id: 2,
       postAuthor: 'AviationLover',
       content: 'Super analyse ! Est-ce que quelqu\'un aurait des sources supplémentaires sur ce sujet ?',
-      likes: 15,
+      upvotes: 15,
+      dpwnvotes: 0,
       postDate: '13/12/2024 13:12'
     },
     {
       id: 3,
       postAuthor: 'ProDruger',
       postText: 'Je peux confirmer ces informations, c\'est exactement ce que j\'ai vécu pendant ma formation.',
-      likes: 42,
+      upvotes: 42,
+      downvotes: 53,
       postDate: '30min ago'
     }
   ]);
@@ -38,10 +41,11 @@ function Post() {
 
     const newComment = {
       id: comments.length + 1,
-      author: 'saw6deFranckfort',
+      postAuthor: 'saw6deFranckfort',
       content: comment,
-      likes: 0,
-      timestamp: 'Just now'
+      upvotes: 0,
+      downvotes: 0,
+      postDate: 'Just now'
     };
 
     setComments([...comments, newComment]);
@@ -50,7 +54,7 @@ function Post() {
 
   return (
     <UserProvider>
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="min-h-screen bg-gray-100">
       <Header />
       <UserName />
 
@@ -101,7 +105,7 @@ function Post() {
                   <p className="text-gray-800 mb-2">{comment.content}</p>
                   <div className="flex items-center gap-4">
                     <button className="flex items-center gap-1 text-gray-500 hover:text-blue-500">
-                      <span>{comment.likes}</span>
+                      <span>{comment.upvotes}</span>
                     </button>
                     <button className="text-gray-500 hover:text-blue-500">Reply</button>
                   </div>
