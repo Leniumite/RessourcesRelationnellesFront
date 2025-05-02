@@ -8,7 +8,6 @@ export const api = {
   ///Param (email: string, password:string) 
   async auth(credentials: { email: string; password: string }): Promise<string> {
     //We go here after click on form
-
     console.log(credentials);
 
     const response = await fetch(`${API_URL}/auth`, {
@@ -35,13 +34,15 @@ export const api = {
     const response = await fetch(`${API_URL}/api/register`, {
       method: 'POST',
       headers: {
-        //I just understand that was not *just* json here.... I have to actually read the docs of the API
+        //I understand that was not *just* json here.... I have to actually read the docs of the API
         'Content-Type': 'application/ld+json',
       },
       //This line trims the parameter we passed and put it in the body of the response.
       //If formData is in another format, API will send back 415 code, wich occurs when bad data formatting
       body: JSON.stringify(formData),
     });
+
+    //console.log(response.json());
 
     //Transform API response into AppUser format
     appUser.mail = formData.email;

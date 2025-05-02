@@ -21,13 +21,13 @@ interface ConnectionFormProps {
 //Function relative to the form. This will be called by external pages (Connection page).
 function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
   //Variables
-  const { login, getUser } = useUser();
+  const { login } = useUser();
 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false); //Litteral setter that sets showPassword to false by default
   const [formData, setFormData] = useState({ //Also sets the array formData to all empty strings
     email: '',
-    roles: ["SimpleUser"],
+    roles: [],
     password: '',
     plainPassword: '',
     name: '',
@@ -44,8 +44,9 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
 
   //A custom handler that will take into parameters info from the form
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();  //Disable send of form Data et and page reloading.
+    e.preventDefault();  //Disable send of form Data and page reloading.
 
+    console.log(formData);
     if(!isLogin) //Or loging in with info already existing
     {      
       try {
@@ -56,11 +57,11 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
           password: "",
           plainPassword: formData.password,
           name: formData.name
-        }, appUser); 
-        await login(appUser);
-        console.log(getUser());
+        }, appUser);
+
       } catch (error) {
         console.error('Erreur lors de la connexion : ', error); //Error handling (can implement it in UI)
+        return;
       }
     }
     
@@ -73,7 +74,9 @@ function ConnectionForm({ isLogin, onSubmit }: ConnectionFormProps) {
       }); 
       //Set the token value from appUser 
       appUser.token = token;
-      console.log(getUser());
+
+      //This line is exclusively for the context, while the instruction above is for the API
+      login(appUser);
 
       //Smarter to do this here, else we just auth even if there is an error
       navigate('/account');

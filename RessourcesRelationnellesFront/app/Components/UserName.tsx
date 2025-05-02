@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 import { useUser } from '../Context';
 
 export function UserName() {
-  const { getUser } = useUser();
-  const user = getUser();
-
+  const { user } = useUser();
   const userName = user ? user.name : "Non connecté.e";
+
+  console.log(user);
 
   return (
     <div className="bg-white border-b shadow-sm">
