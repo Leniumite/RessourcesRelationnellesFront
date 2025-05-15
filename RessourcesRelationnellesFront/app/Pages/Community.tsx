@@ -22,16 +22,17 @@ export default function Community() {
       ];
 
     return (
-      <UserProvider>
-        <div className="min-h-screen bg-gray-100">
-        <Header />
-        <UserName />
-        <CommunityName 
-            name= {"TestTitle"}
-            description= {"TestDescription"}
-            creation= {currentDate}
-        />
+      <div className="min-h-screen bg-gray-100">
+        <UserProvider>
+          <Header />
+          <UserName />
+
+          <CommunityName 
+              name= {"TestTitle"}
+              description= {"TestDescription"}
+              creation= {currentDate}
+          />
+          </UserProvider>
         </div>
-      </UserProvider>
     );
 }

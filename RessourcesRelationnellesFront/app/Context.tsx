@@ -15,15 +15,13 @@ const UserContext = createContext<UserContextType | undefined>(undefined); //Fla
 
 //The Provider component, useful when we will want to use the context somewhere else
 export function UserProvider({ children }: { children: ReactNode }) {
+  //Mandatory line to declare a hook for the state of the user
   const [user, setUser] = useState<AppUser | null>(null);
 
   //Every function should be written here
-  const login = (user: AppUser): Promise<void> => {
-    return new Promise((resolve) => {
-      setUser(user);
-      console.log(user);
-      resolve();
-    });
+  const login = (userProp: AppUser) => {
+    setUser(userProp);
+    console.log(user);
   };
 
   //Logout function: removes user data
@@ -32,8 +30,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setUser(null);
   };
 
-  //Export the provider with every function in the value (don't ask me explainations on this one)
+  //Export the provider with every function and variables in the value (don't ask me explainations on this one)
   return (
+    //Here, user is passed, so every component using the provider will read the value of user
     <UserContext.Provider value={{ user, login, logout }}>
       {children}
     </UserContext.Provider>
